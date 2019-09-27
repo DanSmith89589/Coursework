@@ -7,12 +7,12 @@ public class Main {
     public static Connection db = null;
 
     public static void main(String[] args) {
-        openDatabase("Stock Inventory.db");
-// code to get data from, write to the database etc goes here!
+        openDatabase("Stock Inventory.db");4
         closeDatabase();
+
     }
 
-    private static void openDatabase(String dbFile) {
+    private static <SQLiteConfig> void openDatabase(String dbFile) {
         try  {
             Class.forName("org.sqlite.JDBC");
             SQLiteConfig config = new SQLiteConfig();
