@@ -1,3 +1,5 @@
+package Server;
+import Controllers.Customers;
 import org.sqlite.SQLiteConfig;
 
 import java.sql.Connection;
@@ -7,12 +9,18 @@ public class Main {
     public static Connection db = null;
 
     public static void main(String[] args) {
-        openDatabase("Stock Inventory.db");
+        openDatabase("Stock Inventry.db");
+
+
+
+        Customers.insertCustomer("Dan");
+        Customers.listCustomers();
+
         closeDatabase();
 
     }
 
-    private static <SQLiteConfig> void openDatabase(String dbFile) {
+    private static void openDatabase(String dbFile) {
         try  {
             Class.forName("org.sqlite.JDBC");
             SQLiteConfig config = new SQLiteConfig();

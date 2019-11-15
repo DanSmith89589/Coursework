@@ -1,10 +1,14 @@
+package Controllers;
+
+import Server.Main;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Stock {
     public static void listStock() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT SotckID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT SotckID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Controllers.Stock");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -26,7 +30,7 @@ public class Stock {
     }
     public static void insertStock(int StockID, String Brand, String StockName, String Price, int Quantity, String Type, boolean Exclusive){
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Stock (SotckID, Brand, StockName, Price, Quantity, Type, Exclusive) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Controllers.Stock (SotckID, Brand, StockName, Price, Quantity, Type, Exclusive) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, StockID);
             ps.setString(2, Brand);
             ps.setString(3, StockName);
@@ -35,7 +39,7 @@ public class Stock {
             ps.setString(6, Type);
             ps.setBoolean(7, Exclusive);
             ps.executeUpdate();
-            System.out.println("Record added to Stock table");
+            System.out.println("Record added to Controllers.Stock table");
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -45,7 +49,7 @@ public class Stock {
     public static void updateStock (int StockID, boolean Exclusive){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Stock SET Exclusive = ? WHERE StockID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.Stock SET Exclusive = ? WHERE StockID = ?");
             ps.setBoolean(1, Exclusive);
             ps.setInt(2, StockID);
             ps.executeUpdate();
@@ -60,7 +64,7 @@ public class Stock {
     public static void deleteStock (int StockID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Stock WHERE StockID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Controllers.Stock WHERE StockID = ?");
             ps.setInt(1, StockID);
             ps.executeUpdate();
 

@@ -1,10 +1,14 @@
+package Controllers;
+
+import Server.Main;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class PurchaseOrder {
     public static void listPO() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT PurchaseID, Date, UserID, SupplierID FROM PurchaseOrder");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT PurchaseID, Date, UserID, SupplierID FROM Controllers.PurchaseOrder");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -22,7 +26,7 @@ public class PurchaseOrder {
     }
     public static void insertPO(int PurchaseID, String Date, int UserID, int SupplierID){
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO PurchaseOrder (PurchaseID, Date, UserID, SupplierID) VALUES (?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Controllers.PurchaseOrder (PurchaseID, Date, UserID, SupplierID) VALUES (?, ?, ?, ?)");
             ps.setInt(1, PurchaseID );
             ps.setString(2, Date);
             ps.setInt(3, UserID);
@@ -38,7 +42,7 @@ public class PurchaseOrder {
     public static void updatePO (int SupplierID, int UserID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE PurchaseOrder SET SupplierID = ? WHERE PurchaseID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.PurchaseOrder SET SupplierID = ? WHERE PurchaseID = ?");
             ps.setInt(1, SupplierID);
             ps.setInt(2, UserID);
             ps.executeUpdate();
@@ -53,7 +57,7 @@ public class PurchaseOrder {
     public static void deletePO (String Date){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM PurchaseOrder WHERE Date = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Controllers.PurchaseOrder WHERE Date = ?");
             ps.setString(1, Date);
             ps.executeUpdate();
 
