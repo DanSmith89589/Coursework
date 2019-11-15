@@ -2,16 +2,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Supplier {
-    public static void listUsers() {
+    public static void listSuppliers() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT UserID, username, dateOfBirth FROM Users");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT SupplierID, SupplierName, Location, StockID FROM Supplier");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
-                int userID = results.getInt(1);
-                String username = results.getString(2);
-                String dateOfBirth = results.getString(3);
-                System.out.println(userID + " " + username + " " + dateOfBirth);
+                int SupplierID = results.getInt(1);
+                String SupplierName = results.getString(2);
+                String Location = results.getString(3);
+                int StockID = results.getInt(4);
+                System.out.println(SupplierID + " " + SupplierName + " " + Location + " " + StockID);
             }
 
         } catch (Exception exception) {
@@ -19,27 +20,27 @@ public class Supplier {
         }
 
     }
-    public static void insertWeight(String date, int weightInKG, int userID){
+    public static void insertSupplier(int SupplierID, String SupplierName, String Location, int StockID){
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Weights (Date, WeightInKG, UserID) VALUES (?, ?, ?)");
-            ps.setString(1, date);
-            ps.setInt(2, weightInKG);
-            ps.setInt(3, userID);
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO PurchaseOrder (SupplierID, SupplierName, Location, StockID) VALUES (?, ?, ?)");
+            ps.setInt(1, SupplierID);
+            ps.setString(2, SupplierName);
+            ps.setString(3, Location);
+            ps.setInt(4, StockID);
             ps.executeUpdate();
-            System.out.println("Record added to Weights table");
+            System.out.println("Supplier added to Supplier table");
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
-            System.out.println("Error: Something as gone wrong. Please contact the administrator with the error code WC-WA.");
+            System.out.println("Error: Something as gone wrong.");
         }
     }
-    public static void updateUser (String firstName, String lastName, int userID){
+    public static void updateSuppliers (int StockID, int SupplierID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET FirstName = ?, LastName = ? WHERE UserID = ?");
-            ps.setString(1, firstName);
-            ps.setString(2, lastName);
-            ps.setInt(3, userID);
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Supplier SET StockID WHERE SupplierID = ?");
+            ps.setInt(1, StockID);
+            ps.setInt(2, SupplierID);
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -49,11 +50,11 @@ public class Supplier {
         }
 
     }
-    public static void deleteWeight (int weightID){
+    public static void deleteSupplier (int SupplierID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Weights WHERE WeightID = ?");
-            ps.setInt(1, weightID);
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Supplier WHERE SupplierID = ?");
+            ps.setInt(1, SupplierID);
             ps.executeUpdate();
 
         } catch (Exception e) {

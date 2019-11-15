@@ -7,7 +7,7 @@ public class Main {
     public static Connection db = null;
 
     public static void main(String[] args) {
-        openDatabase("Stock Inventory.db");4
+        openDatabase("Stock Inventory.db");
         closeDatabase();
 
     }
