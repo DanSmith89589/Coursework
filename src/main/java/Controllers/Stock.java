@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class Stock {
     public static void listStock() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT SotckID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Controllers.Stock");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -20,7 +20,7 @@ public class Stock {
                 String Type = results.getString(6);
                 boolean Exclusive = results.getBoolean(7);
 
-                System.out.println(StockID + " " + Brand + " " + StockName + "" + Price + "" + Quantity +  "" + Exclusive);
+                System.out.println(StockID + " " + Brand + " " + StockName + " " + Price + " " + Quantity +  " " + Exclusive);
             }
 
         } catch (Exception exception) {
@@ -30,7 +30,7 @@ public class Stock {
     }
     public static void insertStock(int StockID, String Brand, String StockName, String Price, int Quantity, String Type, boolean Exclusive){
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Controllers.Stock (SotckID, Brand, StockName, Price, Quantity, Type, Exclusive) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Stock (StockID, Brand, StockName, Price, Quantity, Type, Exclusive) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, StockID);
             ps.setString(2, Brand);
             ps.setString(3, StockName);
@@ -39,18 +39,18 @@ public class Stock {
             ps.setString(6, Type);
             ps.setBoolean(7, Exclusive);
             ps.executeUpdate();
-            System.out.println("Record added to Controllers.Stock table");
+            System.out.println("Record added to Stock table");
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
             System.out.println("Error: Something as gone wrong.");
         }
     }
-    public static void updateStock (int StockID, boolean Exclusive){
+    public static void updateStock (int StockID, String Price) {
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.Stock SET Exclusive = ? WHERE StockID = ?");
-            ps.setBoolean(1, Exclusive);
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Stock SET Price = ? WHERE StockID = ?");
+            ps.setString(1, Price);
             ps.setInt(2, StockID);
             ps.executeUpdate();
 
@@ -59,12 +59,27 @@ public class Stock {
             System.out.println(e.getMessage());
 
         }
+    }
+
+        public static void updateStock(int StockID, int Quantity){
+            try {
+
+                PreparedStatement ps = Main.db.prepareStatement("UPDATE Stock SET Quantity = ? WHERE StockID = ?");
+                ps.setInt(1, Quantity);
+                ps.setInt(2, StockID);
+                ps.executeUpdate();
+
+            } catch (Exception e) {
+
+                System.out.println(e.getMessage());
+
+            }
 
     }
     public static void deleteStock (int StockID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Controllers.Stock WHERE StockID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Stock WHERE StockID = ?");
             ps.setInt(1, StockID);
             ps.executeUpdate();
 

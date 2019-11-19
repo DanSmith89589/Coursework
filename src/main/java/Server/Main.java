@@ -1,5 +1,6 @@
 package Server;
 import Controllers.Customers;
+import Controllers.Stock;
 import org.sqlite.SQLiteConfig;
 
 import java.sql.Connection;
@@ -12,9 +13,8 @@ public class Main {
         openDatabase("Stock Inventry.db");
 
 
+        Stock.listStock();
 
-        Customers.insertCustomer("Dan");
-        Customers.listCustomers();
 
         closeDatabase();
 
