@@ -32,13 +32,13 @@ public class Customers {
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
-            System.out.println("Error: Something as gone wrong.");
+            System.out.println("Error: Something has gone wrong.");
         }
     }
     public static void updateUser (int CustomerID, String CustomerName){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.Customer SET CustomerName = ? WHERE CustomerID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Customer SET CustomerName = ? WHERE CustomerID = ?");
             ps.setInt(1, CustomerID);
             ps.setString(2, CustomerName);
             ps.executeUpdate();

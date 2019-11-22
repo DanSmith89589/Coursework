@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class PurchaseOrderDetails {
-    public static void POD() {
+    public static void listPOD() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT PurchaseID, Quantity, StockID FROM Controllers.PurchaseOrderDetails");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT PurchaseID, Quantity, StockID FROM PurchaseOrderDetails");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -25,7 +25,7 @@ public class PurchaseOrderDetails {
     }
     public static void insertPOD(int PurchaseID, int Quantity, int StockID){
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Controllers.PurchaseOrderDetails (PurchaseID, Quantity, StockID) VALUES (?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO PurchaseOrderDetails (PurchaseID, Quantity, StockID) VALUES (?, ?, ?)");
             ps.setInt(1, PurchaseID);
             ps.setInt(2, Quantity);
             ps.setInt(3, StockID);
@@ -34,13 +34,13 @@ public class PurchaseOrderDetails {
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
-            System.out.println("Error: Something as gone wrong.");
+            System.out.println("Error: Something has gone wrong.");
         }
     }
     public static void updatePOD (int Quantity){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.PurchaseOrderDetails SET Quantity = ? WHERE PurchaseID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE PurchaseOrderDetails SET Quantity = ? WHERE PurchaseID = ?");
             ps.setInt(1, Quantity);
             ps.executeUpdate();
 

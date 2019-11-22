@@ -20,7 +20,52 @@ public class Stock {
                 String Type = results.getString(6);
                 boolean Exclusive = results.getBoolean(7);
 
-                System.out.println(StockID + " " + Brand + " " + StockName + " " + Price + " " + Quantity +  " " + Exclusive);
+                System.out.println(StockID + " " + Brand + " " + StockName + " " + Price + " " + Quantity + " " + Type + " " + Exclusive);
+            }
+
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+        }
+    }
+
+        public static void listFootwear() {
+            try {
+                PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE Type = Footwear");
+
+                ResultSet results = ps.executeQuery();
+                while (results.next()) {
+                    int StockID = results.getInt(1);
+                    String Brand = results.getString(2);
+                    String StockName = results.getString(3);
+                    String Price = results.getString(4);
+                    int Quantity = results.getInt(5);
+                    String Type = results.getString(6);
+                    boolean Exclusive = results.getBoolean(7);
+
+                    System.out.println(StockID + " " + Brand + " " + StockName + " " + Price + " " + Quantity + " " + Type + " " + Exclusive);
+                }
+
+            } catch (Exception exception) {
+                System.out.println("Database error: " + exception.getMessage());
+            }
+
+    }
+
+    public static void listClothes() {
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE Type = Clothes");
+
+            ResultSet results = ps.executeQuery();
+            while (results.next()) {
+                int StockID = results.getInt(1);
+                String Brand = results.getString(2);
+                String StockName = results.getString(3);
+                String Price = results.getString(4);
+                int Quantity = results.getInt(5);
+                String Type = results.getString(6);
+                boolean Exclusive = results.getBoolean(7);
+
+                System.out.println(StockID + " " + Brand + " " + StockName + " " + Price + " " + Quantity + " " + Type + " " + Exclusive);
             }
 
         } catch (Exception exception) {
@@ -28,6 +73,30 @@ public class Stock {
         }
 
     }
+
+    public static void lookUp() {
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE StockID = ?");
+
+            ResultSet results = ps.executeQuery();
+            while (results.next()) {
+                int StockID = results.getInt(1);
+                String Brand = results.getString(2);
+                String StockName = results.getString(3);
+                String Price = results.getString(4);
+                int Quantity = results.getInt(5);
+                String Type = results.getString(6);
+                boolean Exclusive = results.getBoolean(7);
+
+                System.out.println(StockID + " " + Brand + " " + StockName + " " + Price + " " + Quantity + " " + Type + " " + Exclusive);
+            }
+
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+        }
+
+    }
+
     public static void insertStock(int StockID, String Brand, String StockName, String Price, int Quantity, String Type, boolean Exclusive){
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Stock (StockID, Brand, StockName, Price, Quantity, Type, Exclusive) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -43,9 +112,10 @@ public class Stock {
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
-            System.out.println("Error: Something as gone wrong.");
+            System.out.println("Error: Something has gone wrong.");
         }
     }
+
     public static void updateStock (int StockID, String Price) {
         try {
 

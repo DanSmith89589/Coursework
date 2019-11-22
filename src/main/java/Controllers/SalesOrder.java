@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class SalesOrder {
     public static void listSO() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT SalesNo, Date, UserID, CustomerID FROM Controllers.SalesOrder");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT SalesNo, Date, UserID, CustomerID FROM SalesOrder");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -24,7 +24,7 @@ public class SalesOrder {
         }
 
     }
-    public static void insertWeight(int SalesNo, String Date, int UserID, int CustomerID){
+    public static void insertSO(int SalesNo, String Date, int UserID, int CustomerID){
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO SalesOrder (SalesNo, Date, UserID, CustomerID) VALUES (?, ?, ?, ?)");
             ps.setInt(1, SalesNo);
@@ -39,10 +39,10 @@ public class SalesOrder {
             System.out.println("Error: Something has gone wrong.");
         }
     }
-    public static void updateUser (String Date){
+    public static void updateSO (String Date){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.SlaesOrder SET Date = ? WHERE SalesNo = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE SlaesOrder SET Date = ? WHERE SalesNo = ?");
             ps.setString(1, Date);
             ps.executeUpdate();
 

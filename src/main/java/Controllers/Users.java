@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class Users {
     public static void listUsers() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT UserID, StoreNo FROM Controllers.Users");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT UserID, StoreNo FROM Users");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -33,13 +33,13 @@ public class Users {
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
-            System.out.println("Error: Something as gone wrong.");
+            System.out.println("Error: Something has gone wrong.");
         }
     }
     public static void updateUser (int UserID, int StoreNo){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.Users SET StoreNo = ? WHERE UserID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET StoreNo = ? WHERE UserID = ?");
             ps.setInt(1, UserID);
             ps.setInt(2, StoreNo);
             ps.executeUpdate();

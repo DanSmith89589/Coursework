@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class SalesOrderDetails {
     public static void listSOD() {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT SalesNo, Quantity, StockID FROM Controllers.SalesOrderDetails");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT SalesNo, Quantity, StockID FROM SalesOrderDetails");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -40,7 +40,7 @@ public class SalesOrderDetails {
     public static void updateSOD (int SalesNo, int Quantity, int StockID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.SalesOrderDetails SET Quantity = ? WHERE SalesNo = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE SalesOrderDetails SET Quantity = ? WHERE SalesNo = ?");
             ps.setInt(1, Quantity);
             ps.setInt(2, SalesNo);
             ps.executeUpdate();
