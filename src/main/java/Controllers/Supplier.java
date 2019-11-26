@@ -42,7 +42,7 @@ public class Supplier {
     public static void updateSuppliers (int StockID, int SupplierID){
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Supplier SET StockID WHERE SupplierID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Supplier SET StockID = ? WHERE SupplierID = ?");
             ps.setInt(1, StockID);
             ps.setInt(2, SupplierID);
             ps.executeUpdate();
