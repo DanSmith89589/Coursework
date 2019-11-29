@@ -35,8 +35,8 @@ public class Main {
             server.start();
             System.out.println("Server successfully started.");
             server.join();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
         closeDatabase();

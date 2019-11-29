@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("stock")
+@Path("stock/")
 public class Stock {
     @GET
     @Path("list")
@@ -32,6 +32,7 @@ public class Stock {
                 stock.put("Quantity", results.getInt(5));
                 stock.put("Type", results.getString(6));
                 stock.put("Exclusive", results.getBoolean(7));
+                list.add(stock);
 
             }
                 return list.toString();
@@ -44,29 +45,31 @@ public class Stock {
         }
 
         @GET
-        @Path("listFootwear/{Type}")
+        @Path("listType/{Type}")
         @Produces(MediaType.APPLICATION_JSON)
-                public String getlistFootwear(@PathParam("Type") String Type) throws Exception {
+                public String getlistType(@PathParam("Type") String Type) throws Exception {
             if (Type == null) {
                 throw new Exception("Stock 'Type' is missing in the HTTP request's URL.");
             }
-            System.out.println("stock/listFootwear/" + Type);
-            JSONObject footwear = new JSONObject();
+            System.out.println("stock/listType/" + Type);
+            JSONArray list = new JSONArray();
 
             try {
-                PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE Type = Footwear");
+                PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE Type = ?");
+                ps.setString(1,Type);
                 ResultSet results = ps.executeQuery();
                 if (results.next()) {
-
-                    footwear.put("StockID", results.getInt(1));
-                    footwear.put("Brand", results.getString(2));
-                    footwear.put("StockName", results.getString(3));
-                    footwear.put("Price", results.getString(4));
-                    footwear.put("Quantity", results.getInt(5));
-                    footwear.put("Type", results.getString(6));
-                    footwear.put("Exclusive", results.getBoolean(7));
+                    JSONObject type = new JSONObject();
+                    type.put("StockID", results.getInt(1));
+                    type.put("Brand", results.getString(2));
+                    type.put("StockName", results.getString(3));
+                    type.put("Price", results.getString(4));
+                    type.put("Quantity", results.getInt(5));
+                    type.put("Type", results.getString(6));
+                    type.put("Exclusive", results.getBoolean(7));
+                    list.add(type);
                 }
-                return footwear.toString();
+                return list.toString();
 
             } catch (Exception exception) {
                 System.out.println("Database error: " + exception.getMessage());
@@ -75,37 +78,6 @@ public class Stock {
         }
 
 
-
-    @GET
-    @Path("listClothes/{Type}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getlistClothes(@PathParam("Type") String Type) throws Exception {
-        if (Type == null) {
-            throw new Exception("Stock 'Type' is missing in the HTTP request's URL.");
-        }
-        System.out.println("stock/listClothes/" + Type);
-        JSONObject clothes = new JSONObject();
-
-        try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE Type = Footwear");
-            ResultSet results = ps.executeQuery();
-            if (results.next()) {
-
-                clothes.put("StockID", results.getInt(1));
-                clothes.put("Brand", results.getString(2));
-                clothes.put("StockName", results.getString(3));
-                clothes.put("Price", results.getString(4));
-                clothes.put("Quantity", results.getInt(5));
-                clothes.put("Type", results.getString(6));
-                clothes.put("Exclusive", results.getBoolean(7));
-            }
-            return clothes.toString();
-
-        } catch (Exception exception) {
-            System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to get clothes, please see server console for more info.\"}";
-        }
-    }
 
     @GET
     @Path("lookUp/{StockID}")
@@ -165,46 +137,72 @@ public class Stock {
         }
     }
 
-    public static void updateStock (int StockID, String Price) {
+    @POST
+    @Path("updatePrice")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updatePrice (@FormDataParam("StockID") Integer StockID, @FormDataParam("Price") String Price) {
         try {
+            if(StockID == null || Price == null){
+                throw new Exception("One or more from the data parameters are missing in the HTTP request");
+            }
+            System.out.println("stock/updatePrice StockID=" + StockID);
 
             PreparedStatement ps = Main.db.prepareStatement("UPDATE Stock SET Price = ? WHERE StockID = ?");
             ps.setString(1, Price);
             ps.setInt(2, StockID);
             ps.executeUpdate();
+            return "{\"status\":\"OK\"}";
+        } catch (Exception exception) {
 
-        } catch (Exception e) {
-
-            System.out.println(e.getMessage());
-
+            System.out.println("Database error:" + exception.getMessage());
+            return"{\"error\":\"unable to update the price Stock item.\"}";
         }
     }
 
-        public static void updateStock(int StockID, int Quantity){
-            try {
-
-                PreparedStatement ps = Main.db.prepareStatement("UPDATE Stock SET Quantity = ? WHERE StockID = ?");
-                ps.setInt(1, Quantity);
-                ps.setInt(2, StockID);
-                ps.executeUpdate();
-
-            } catch (Exception e) {
-
-                System.out.println(e.getMessage());
-
-            }
-
-    }
-    public static void deleteStock (int StockID){
+    @POST
+    @Path("updateQuantity")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updatePrice (@FormDataParam("StockID") Integer StockID, @FormDataParam("Quantity") Integer Quantity) {
         try {
+            if(StockID == null || Quantity == null){
+                throw new Exception("One or more from the data parameters are missing in the HTTP request");
+            }
+            System.out.println("stock/updatePrice StockID=" + StockID);
+
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Stock SET Quantity = ? WHERE StockID = ?");
+            ps.setInt(1, Quantity);
+            ps.setInt(2, StockID);
+            ps.executeUpdate();
+            return "{\"status\":\"OK\"}";
+        } catch (Exception exception) {
+
+            System.out.println("Database error:" + exception.getMessage());
+            return"{\"error\":\"unable to update quantity of Stock item.\"}";
+        }
+    }
+
+    @POST
+    @Path("Delete")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteStock (@FormDataParam("StockID") Integer StockID){
+
+        try {
+            if(StockID == null){
+                throw new Exception("A data parameter is missing from the HTTP request.");
+            }
+            System.out.println("stock/delete StockID=" + StockID);
 
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Stock WHERE StockID = ?");
             ps.setInt(1, StockID);
             ps.executeUpdate();
+            return "{\"status\":\"OK\"}";
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return "{\"error\":\"Unable to delete item from table.\"}";
         }
 
     }
