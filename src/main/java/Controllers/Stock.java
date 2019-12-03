@@ -129,6 +129,7 @@ public class Stock {
             ps.setInt(5, Quantity);
             ps.setString(6, Type);
             ps.setBoolean(7, Exclusive);
+            ps.executeUpdate();
             return "{\"status\":\"OK\"}";
 
         } catch (Exception exception) {
