@@ -56,24 +56,25 @@ public class Stock {
 
             try {
                 PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock WHERE Type = ?");
-                ps.setString(1,Type);
+                ps.setString(1, Type);
                 ResultSet results = ps.executeQuery();
-                if (results.next()) {
+
+                while (results.next()) {
                     JSONObject type = new JSONObject();
+                    type.put("Type", Type);
                     type.put("StockID", results.getInt(1));
                     type.put("Brand", results.getString(2));
                     type.put("StockName", results.getString(3));
                     type.put("Price", results.getString(4));
                     type.put("Quantity", results.getInt(5));
-                    type.put("Type", results.getString(6));
-                    type.put("Exclusive", results.getBoolean(7));
+                    type.put("Exclusive", results.getBoolean(6));
                     list.add(type);
                 }
                 return list.toString();
 
             } catch (Exception exception) {
                 System.out.println("Database error: " + exception.getMessage());
-                return "{\"error\": \"Unable to get footwear, please see server console for more info.\"}";
+                return "{\"error\": \"Unable to get stock type, please see server console for more info.\"}";
             }
         }
 
@@ -82,7 +83,7 @@ public class Stock {
     @GET
     @Path("lookUp/{StockID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getlistClothes(@PathParam("StockID") Integer StockID) throws Exception {
+    public String getlistStock(@PathParam("StockID") Integer StockID) throws Exception {
         if (StockID == null) {
             throw new Exception("Stock 'StockID' is missing in the HTTP request's URL.");
         }
@@ -95,12 +96,12 @@ public class Stock {
             ResultSet results = ps.executeQuery();
             if (results.next()) {
                 lookUp.put("StockID", StockID);
-                lookUp.put("Brand", results.getString(1));
-                lookUp.put("StockName", results.getString(2));
-                lookUp.put("Price", results.getString(3));
-                lookUp.put("Quantity", results.getInt(4));
-                lookUp.put("Type", results.getString(5));
-                lookUp.put("Exclusive", results.getBoolean(6));
+                lookUp.put("Brand", results.getString(2));
+                lookUp.put("StockName", results.getString(3));
+                lookUp.put("Price", results.getString(4));
+                lookUp.put("Quantity", results.getInt(5));
+                lookUp.put("Type", results.getString(6));
+                lookUp.put("Exclusive", results.getBoolean(7));
             }
             return lookUp.toString();
 
@@ -185,7 +186,7 @@ public class Stock {
     }
 
     @POST
-    @Path("Delete")
+    @Path("delete")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteStock (@FormDataParam("StockID") Integer StockID){
