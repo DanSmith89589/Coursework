@@ -1,3 +1,22 @@
 body{
     background-color: #659dbd;
 }
+
+#title{
+    color:black;
+    position: relative;
+    top: -30px;
+}
+
+#content{
+    background-color: navy;
+    position: relative;
+    top: 5px;
+    min-height: 925px;
+    margin-left: 0.50%;
+    margin-right: 0.50%;
+}
+
+#POButton{
+    position: relative;
+}
