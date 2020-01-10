@@ -1,15 +1,16 @@
 body{
-    background-color: #659dbd;
+    background-color: #1a1a1d;
 }
 
 #title{
-    color:black;
+    color:white;
+    font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
     position: relative;
     top: -30px;
 }
 
 #content{
-    background-color: white;
+    background-color:#ffff;
     position: relative;
     top: 5px;
     min-height: 925px;
@@ -19,4 +20,19 @@ body{
 
 #POButton{
     position: relative;
+}
+
+#heading1{
+    color: #4e4e50;
+    font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+    position: relative;
+    right: -3px;
+}
+#table2{
+    border: 10px;
+    bordercolor:"black";
+    font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+     width: 778.5px;
+    height: 172.5px;
+    font-size: 20px;
 }

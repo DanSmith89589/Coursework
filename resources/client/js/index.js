@@ -1,6 +1,6 @@
 function pageLoad() {
 
-    let fruitsHTML = '<table>' +
+    let stockHTML = '<table id="table2" border="1" bordercolor="black" >' +  //w 519 l 115
         '<tr>' +
         '<th>Id</th>' +
         '<th>Brand</th>' +
@@ -15,7 +15,7 @@ function pageLoad() {
 
         for (let stock of items) {
             debugger;
-            fruitsHTML += `<tr>` +
+            stockHTML += `<tr>` +
                 `<td>${stock.StockID}</td>` +
                 `<td>${stock.Brand}</td>` +
                 `<td>${stock.StockName}</td>` +
@@ -27,9 +27,9 @@ function pageLoad() {
                 `</tr>`;
         }
 
-            fruitsHTML += '</table>';
+            stockHTML += '</table>';
 
-            document.getElementById("listDiv").innerHTML = fruitsHTML;
+            document.getElementById("listDiv").innerHTML = stockHTML;
 
             let editButtons = document.getElementsByClassName("editButton");
             for (let button of editButtons) {
