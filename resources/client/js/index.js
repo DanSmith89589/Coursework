@@ -31,20 +31,62 @@ function pageLoad() {
 
             document.getElementById("listDiv").innerHTML = stockHTML;
 
-            let editButtons = document.getElementsByClassName("editButton");
-            for (let button of editButtons) {
-                button.addEventListener("click", editFruit);
-            }
-
-            let deleteButtons = document.getElementsByClassName("deleteButton");
-            for (let button of deleteButtons) {
-                button.addEventListener("click", deleteFruit);
-            }
+           
 
         });
 
-    document.getElementById("saveButton").addEventListener("click", saveEditFruit);
-    document.getElementById("cancelButton").addEventListener("click", cancelEditFruit);
 }
+
+function editFruit(event) {
+
+    const id = event.target.getAttribute("data-id");
+
+    if (id === null) {
+
+        document.getElementById("AddStock").innerHTML = 'Add Stock Item:';
+
+        document.getElementById("StockID").value = '';
+        document.getElementById("Brand").value = '';
+        document.getElementById("StockName").value = '';
+        document.getElementById("Price").value = '';
+        document.getElementById("Quantity").value = '';
+        document.getElementById("Type").value = '';
+        document.getElementById("Exclusive").value = '';
+
+        document.getElementById("listDiv").style.display = 'none';
+        document.getElementById("editDiv").style.display = 'block';
+
+    } else {
+
+        fetch('/Stock/lookUp/' + StockID, {method: 'get'}
+        ).then(response => response.json()
+        ).then(stock => {
+
+            if (stock.hasOwnProperty('error')) {
+                alert(stock.error);
+            } else {
+
+                document.getElementById("editHeading").innerHTML = 'Editing ' + stock.StockName + ':';
+
+                document.getElementById("StockID").value = stock.StockID;
+                document.getElementById("Brand").value = stock.Brand;
+                document.getElementById("StockName").value = stock.StockName;
+                document.getElementById("Price").value = stock.Price;
+                document.getElementById("Quantity").value = stock.Quantity;
+                document.getElementById("Type").value = stock.Type;
+                document.getElementById("Exclusive").value = stock.Exclusive;
+
+                document.getElementById("listDiv").style.display = 'none';
+                document.getElementById("editDiv").style.display = 'block';
+
+            }
+        });
+    }
+
+
+
+
+}
+
 
 

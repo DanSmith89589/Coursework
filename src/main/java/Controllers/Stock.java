@@ -20,7 +20,7 @@ public class Stock {
         JSONArray list = new JSONArray();
 
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT StockID, Brand, StockName, Price, Quantity, Type, Exclusive FROM Stock ORDER by TYPE ");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
