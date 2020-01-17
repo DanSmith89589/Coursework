@@ -31,7 +31,7 @@ function pageLoad() {
 
             document.getElementById("listDiv").innerHTML = stockHTML;
 
-           
+
 
         });
 
