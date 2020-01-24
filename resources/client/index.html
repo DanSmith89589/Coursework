@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:for="http://www.w3.org/1999/xhtml">
 <head>
     <title>Stock</title>
     <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
@@ -23,9 +23,46 @@
     <div id="listDiv"></div>
 
     <div>
-        <button id="AStockButton" >Add Stock</button>
+        <button id="AStockButton"  onclick="editStock()" >Add Stock</button>
         <button id="UStockButton" >Update Stock</button>
         <button id="LStockButton" >Look Up Stock</button>
+    </div>
+
+
+
+    <div id="editDiv">
+        <form>
+            <div>
+                <label for="Brand">Brand:</label>
+                <input type="text" name="Brand" id="Brand">
+            </div>
+
+            <div>
+                <label for="StockName">StockName:</label>
+                <input type="text" name="Brand" id="StockName">
+            </div>
+
+            <div>
+                <label for="Price">Price:</label>
+                <input type="text" name="Brand" id="Price">
+            </div>
+
+            <div>
+                <label for="Quantity">Quantity:</label>
+                <input type="text" name="Brand" id="Quantity">
+            </div>
+
+            <div>
+                <label for="Type">Type:</label>
+                <input type="text" name="Brand" id="Type">
+            </div>
+
+            <div>
+                <label for="Exclusive">Exclusive:</label>
+                <input type="text" name="Brand" id="Exclusive">
+            </div>
+        </form>
+
     </div>
 
 

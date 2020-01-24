@@ -37,8 +37,8 @@ function pageLoad() {
 
 }
 
-function editFruit(event) {
-
+function editStock(event) {
+    debugger
     const id = event.target.getAttribute("data-id");
 
     if (id === null) {
@@ -66,7 +66,7 @@ function editFruit(event) {
                 alert(stock.error);
             } else {
 
-                document.getElementById("editHeading").innerHTML = 'Editing ' + stock.StockName + ':';
+                document.getElementById("editHeading").innerHTML = 'Editing ' + stock.StockID + ':';
 
                 document.getElementById("StockID").value = stock.StockID;
                 document.getElementById("Brand").value = stock.Brand;
@@ -87,6 +87,5 @@ function editFruit(event) {
 
 
 }
-
 
 
