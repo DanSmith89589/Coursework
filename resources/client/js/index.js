@@ -31,17 +31,28 @@ function pageLoad() {
 
             document.getElementById("listDiv").innerHTML = stockHTML;
 
+        let editButtons = document.getElementsByClassName("AStockButton");
+        for (let button of editButtons) {
+            button.addEventListener("click", editStock);
+        }
 
+        let deleteButtons = document.getElementsByClassName("deleteStockButton");
+        for (let button of deleteButtons) {
+            button.addEventListener("click", deleteStock);
+        }
 
-        });
+        document.getElementById("saveButton").addEventListener("click", saveEditStock);
+        document.getElementById("cancelButton").addEventListener("click", cancelEditStock);
+
+    });
 
 }
 
 function editStock(event) {
     debugger
-    const id = event.target.getAttribute("data-id");
+    const StockID = event.target.getAttribute("data-id");
 
-    if (id === null) {
+    if (StockID === null) {
 
         document.getElementById("AddStock").innerHTML = 'Add Stock Item:';
 
@@ -66,7 +77,7 @@ function editStock(event) {
                 alert(stock.error);
             } else {
 
-                document.getElementById("editHeading").innerHTML = 'Editing ' + stock.StockID + ':';
+                document.getElementById("editHeading").innerHTML = 'Editing ' + stock.Brand + ':';
 
                 document.getElementById("StockID").value = stock.StockID;
                 document.getElementById("Brand").value = stock.Brand;
@@ -82,10 +93,98 @@ function editStock(event) {
             }
         });
     }
+}
+
+function saveEditStock(event) {
+
+    event.preventDefault();
+
+    if (document.getElementById("Brand").value.trim() === '') {
+        alert("Please provide a brand.");
+        return;
+    }
+
+    if (document.getElementById("StockName").value.trim() === '') {
+        alert("Please provide a stock name.");
+        return;
+    }
+
+    if (document.getElementById("Price").value.trim() === '') {
+        alert("Please provide a price.");
+        return;
+    }
+
+    if (document.getElementById("Quantity").value.trim() === '') {
+        alert("Please provide a Quantity.");
+        return;
+    }
+
+    if (document.getElementById("Type").value.trim() === '') {
+        alert("Please provide a Stock Type(Footwear/Clothing).");
+        return;
+    }
+
+    if (document.getElementById("Exclusive").value.trim() === '') {
+        alert("Please provide information about whether the stock is exclusive.");
+        return;
+    }
+   const StockID = document.getElementById("StockID").value;
+    const form = document.getElementById("stockForm");
+    const formData = new FormData(form);
+
+    let apiPath = '';
+    if (StockID === '') {
+        apiPath = '/stock/add';
+    } else{
+        apiPath = '/stock/updatePrice';
+    }
+
+    fetch(apiPath, {method: 'post', body: formData}
+    ).then(response => response.json()
+    ).then(responseData => {
+
+        if (responseData.hasOwnProperty('error')) {
+            alert(responseData.error);
+        } else {
+            document.getElementById("listDiv").style.display = 'block';
+            document.getElementById("editDiv").style.display = 'none';
+            pageLoad();
+        }
+    });
+}
+
+function cancelEditStock(event) {
+
+    event.preventDefault();
+
+    document.getElementById("listDiv").style.display = 'block';
+    document.getElementById("editDiv").style.display = 'none';
+
+}
 
 
+function deleteStock(event) {
 
+    const ok = confirm("Are you sure?");
 
+    if (ok === true) {
+
+        let StockID = event.target.getAttribute("data-id");
+        let formData = new FormData();
+        formData.append("StockID", StockID);
+
+        fetch('/stock/delete', {method: 'post', body: formData}
+        ).then(response => response.json()
+        ).then(responseData => {
+
+                if (responseData.hasOwnProperty('error')) {
+                    alert(responseData.error);
+                } else {
+                    pageLoad();
+                }
+            }
+        );
+    }
 }
 
 

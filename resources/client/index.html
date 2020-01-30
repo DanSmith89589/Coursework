@@ -15,7 +15,7 @@
         <div>
             <button id="SOButton" onclick="window.location.href='sales.html'">Sales Orders</button>
             <button id="POButton"  onclick="window.location.href='purchase.html'">Purchase Order</button>
-            <button id="UserButton" onclick="window.location.href='sales.html'">Users</button>
+            <button id="UserButton" onclick="window.location.href='users.html'">Users</button>
         </div>
 
     </div>
@@ -23,50 +23,50 @@
     <div id="listDiv"></div>
 
     <div>
-        <button id="AStockButton"  onclick="editStock()" >Add Stock</button>
-        <button id="UStockButton" >Update Stock</button>
-        <button id="LStockButton" >Look Up Stock</button>
+        <button id="AStockButton"  >Add Stock</button>
+        <button id="deleteStockButton"  >Delete Stock</button>
     </div>
 
 
 
     <div id="editDiv">
-        <form>
+
+        <h2 id="editHeading"></h2>
+        <form id="stockForm">
+            <input type="hidden" name="StockID" id="StockID">
             <div>
                 <label for="Brand">Brand:</label>
                 <input type="text" name="Brand" id="Brand">
             </div>
-
             <div>
                 <label for="StockName">StockName:</label>
                 <input type="text" name="Brand" id="StockName">
             </div>
-
             <div>
                 <label for="Price">Price:</label>
                 <input type="text" name="Brand" id="Price">
             </div>
-
             <div>
                 <label for="Quantity">Quantity:</label>
                 <input type="text" name="Brand" id="Quantity">
             </div>
-
             <div>
                 <label for="Type">Type:</label>
                 <input type="text" name="Brand" id="Type">
             </div>
-
             <div>
                 <label for="Exclusive">Exclusive:</label>
                 <input type="text" name="Brand" id="Exclusive">
             </div>
+            <div>
+                <input type="submit" value="Save" id="saveButton">
+                <input type="submit" value="Cancel" id="cancelButton">
+            </div>
         </form>
-
     </div>
 
 
-</div>
+    </div>
 </body>
 
 </html>

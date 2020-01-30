@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PO Details</title>
+    <script src="js/PODetails.js"></script>
+    <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+</head>
+<body onload="pageLoad()">
+<div id="content">
+
+    <div id="pageHeader">
+        <h1 id="title">Purchase Order Details</h1>
+        <h1 id="heading1">Purchase Details</h1>
+        <div>
+            <button id="HomeButton" onclick="window.location.href='index.html'">Home</button>
+            <button id="POButton"  onclick="window.location.href='purchase.html'">Purchase Order</button>
+        </div>
+
+    </div>
+
+    <div id="listDiv"></div>
+
+    <div>
+        <button id="APODButton"  onclick="editStock()" >Add POD info</button>
+        <button id="UPODButton" >Update POD info</button>
+        <button id="DeletePODButton" >Delete POD</button>
+    </div>
+
+</div>
+</body>
+</html>

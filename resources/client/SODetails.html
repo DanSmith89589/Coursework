@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SO Details</title>
+    <script src="js/SODetails.js"></script>
+    <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+</head>
+<body onload="pageLoad()">
+<div id="content">
+
+    <div id="pageHeader">
+        <h1 id="title">Sales Order Details</h1>
+        <h1 id="heading1">Sales Details</h1>
+        <div>
+            <button id="HomeButton" onclick="window.location.href='index.html'">Home</button>
+            <button id="SOButton"  onclick="window.location.href='sales.html'">Purchase Order</button>
+        </div>
+
+    </div>
+
+    <div id="listDiv"></div>
+
+    <div>
+        <button id="APODButton"  onclick="editStock()" >Add SOD info</button>
+        <button id="UPODButton" >Update SOD info</button>
+        <button id="DeletePODButton" >Delete SOD</button>
+    </div>
+
+</div>
+</body>
+</html>
