@@ -115,17 +115,17 @@ public class Stock {
     @Path("add")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String insertStock(@FormDataParam("StockID") Integer StockID, @FormDataParam("Brand") String Brand, @FormDataParam("StockName") String StockName, @FormDataParam("Price") String Price, @FormDataParam("Quantity") Integer Quantity, @FormDataParam("Type") String Type, @FormDataParam("Exclusive") Boolean Exclusive ){
+    public String insertStock(@FormDataParam("StockID") Integer StockID, @FormDataParam("Brand") String Brand, @FormDataParam("StockName") String StockName, @FormDataParam("Price") Integer Price, @FormDataParam("Quantity") Integer Quantity, @FormDataParam("Type") String Type, @FormDataParam("Exclusive") Boolean Exclusive ){
         try {
             if (Brand == null || StockName == null || Price == null || Quantity == null || Type == null || Exclusive == null){
                 throw new Exception("One or more from data parameters are missing in the HTTP Request.");
             }
             System.out.println("stock/add Stock=" + StockID);
 
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Stock (Brand, StockName, Price, Quantity, Type, Exclusive) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Stock (Brand, StockName, Price, Quantity, Type, Exclusive) VALUES ( ?, ?, ?, ?, ?, ?)");
             ps.setString(1, Brand);
             ps.setString(2, StockName);
-            ps.setString(3, Price);
+            ps.setInt(3, Price);
             ps.setInt(4, Quantity);
             ps.setString(5, Type);
             ps.setBoolean(6, Exclusive);

@@ -5,16 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\danie\Documents\College\Computer Science\Coursework Project\resources\Stock Inventry.db</jdbc-url>
-      <driver-properties>
-        <property name="enable_load_extension" value="true" />
-      </driver-properties>
-    </data-source>
-    <data-source source="LOCAL" name="Stock Inventry [2]" uuid="73bc012c-d473-407a-b6f7-d42606da6161">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\89589\IdeaProjects\Coursework\resources\Stock Inventry.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/resources/Stock Inventry.db</jdbc-url>
       <driver-properties>
         <property name="enable_load_extension" value="true" />
       </driver-properties>

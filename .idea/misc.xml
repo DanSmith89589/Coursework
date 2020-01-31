@@ -11,7 +11,20 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
+  <component name="NullableNotNullManager">
+    <instrumentedNotNulls>
+      <option value="android.support.annotation.NonNull" />
+      <option value="androidx.annotation.NonNull" />
+      <option value="androidx.annotation.RecentlyNonNull" />
+      <option value="edu.umd.cs.findbugs.annotations.NonNull" />
+      <option value="javax.annotation.Nonnull" />
+      <option value="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
+      <option value="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+      <option value="org.checkerframework.checker.nullness.qual.NonNull" />
+      <option value="org.jetbrains.annotations.NotNull" />
+    </instrumentedNotNulls>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11.0.5" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

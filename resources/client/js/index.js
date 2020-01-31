@@ -24,6 +24,7 @@ function pageLoad() {
                 `<td>${stock.Type}</td>` +
                 `<td>${stock.Exclusive}</td>` +
 
+
                 `</tr>`;
         }
 
@@ -50,19 +51,19 @@ function pageLoad() {
 
 function editStock(event) {
     debugger
-    const StockID = event.target.getAttribute("data-id");
+    const StockID = event.target.getAttribute("data-StockID");
 
     if (StockID === null) {
 
-        document.getElementById("AddStock").innerHTML = 'Add Stock Item:';
+        document.getElementById("editHeading").innerHTML = 'Add Stock Item:';
 
-        document.getElementById("StockID").value = '';
-        document.getElementById("Brand").value = '';
-        document.getElementById("StockName").value = '';
-        document.getElementById("Price").value = '';
-        document.getElementById("Quantity").value = '';
-        document.getElementById("Type").value = '';
-        document.getElementById("Exclusive").value = '';
+        document.getElementById("stockID").value = '';
+        document.getElementById("brand").value = '';
+        document.getElementById("stockName").value = '';
+        document.getElementById("price").value = '';
+        document.getElementById("quantity").value = '';
+        document.getElementById("type").value = '';
+        document.getElementById("exclusive").value = '';
 
         document.getElementById("listDiv").style.display = 'none';
         document.getElementById("editDiv").style.display = 'block';
@@ -99,58 +100,58 @@ function saveEditStock(event) {
 
     event.preventDefault();
 
-    if (document.getElementById("Brand").value.trim() === '') {
+    if (document.getElementById("brand").value.trim() === '') {
         alert("Please provide a brand.");
         return;
     }
 
-    if (document.getElementById("StockName").value.trim() === '') {
+    if (document.getElementById("stockName").value.trim() === '') {
         alert("Please provide a stock name.");
         return;
     }
 
-    if (document.getElementById("Price").value.trim() === '') {
+    if (document.getElementById("price").value.trim() === '') {
         alert("Please provide a price.");
         return;
     }
 
-    if (document.getElementById("Quantity").value.trim() === '') {
-        alert("Please provide a Quantity.");
+    if (document.getElementById("quantity").value.trim() === '') {
+        alert("Please provide a quantity.");
         return;
     }
 
-    if (document.getElementById("Type").value.trim() === '') {
+    if (document.getElementById("type").value.trim() === '') {
         alert("Please provide a Stock Type(Footwear/Clothing).");
         return;
     }
 
-    if (document.getElementById("Exclusive").value.trim() === '') {
-        alert("Please provide information about whether the stock is exclusive.");
-        return;
+    if (document.getElementById("exclusive").value.trim() === '') {
+    alert("Please provide information about whether the stock is exclusive.");
+    return;
+}
+const StockID = document.getElementById("stockID").value;
+const form = document.getElementById("stockForm");
+const formData = new FormData(form);
+
+let apiPath = '';
+if (StockID === '') {
+    apiPath = '/stock/add';
+} else{
+    apiPath = '/stock/updatePrice';
+}
+
+fetch(apiPath, {method: 'post', body: formData}
+).then(response => response.json()
+).then(responseData => {
+
+    if (responseData.hasOwnProperty('error')) {
+        alert(responseData.error);
+    } else {
+        document.getElementById("listDiv").style.display = 'block';
+        document.getElementById("editDiv").style.display = 'none';
+        pageLoad();
     }
-   const StockID = document.getElementById("StockID").value;
-    const form = document.getElementById("stockForm");
-    const formData = new FormData(form);
-
-    let apiPath = '';
-    if (StockID === '') {
-        apiPath = '/stock/add';
-    } else{
-        apiPath = '/stock/updatePrice';
-    }
-
-    fetch(apiPath, {method: 'post', body: formData}
-    ).then(response => response.json()
-    ).then(responseData => {
-
-        if (responseData.hasOwnProperty('error')) {
-            alert(responseData.error);
-        } else {
-            document.getElementById("listDiv").style.display = 'block';
-            document.getElementById("editDiv").style.display = 'none';
-            pageLoad();
-        }
-    });
+});
 }
 
 function cancelEditStock(event) {
@@ -169,7 +170,7 @@ function deleteStock(event) {
 
     if (ok === true) {
 
-        let StockID = event.target.getAttribute("data-id");
+        let StockID = event.target.getAttribute("data-StockID");
         let formData = new FormData();
         formData.append("StockID", StockID);
 
